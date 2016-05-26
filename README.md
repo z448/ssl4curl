@@ -23,24 +23,20 @@
 
 # INSTALLATION
 
-- clone repository
-
-    git clone https://github.com/z448/ssl4curl
-
-- initialize from command line as root or use sudo
-
-    sudo ssl4curl -i
+```bash
+#clone repository
+git clone https://github.com/z448/ssl4curl
+#initialize from command line as root or use sudo
+sudo ssl4curl -i
+```
 
 # USAGE
 
-> \- add to ~/.bashrc to check/download and setup certificates on start of every session
->
-> `` export `ssl4curl -p` ``
->
-> \- execute on command line to check/download certificates and list export string. You can add output string into your ~/.bashrc in which case certificate setup will be skiped on start of session.
->
-> `ssl4curl`
->
-> \- print this pod
->
-> `ssl4curl -h`
+```bash
+#add to ~/.bashrc to check/download and setup certificates on start of every session
+export `ssl4curl -p`
+#execute on command line to check/download certificates and list export string. You can add output string into your ~/.bashrc in which case certificate setup will be skiped on start of session.
+`ssl4curl`
+#print this doc
+`ssl4curl -h`
+```
