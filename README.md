@@ -27,12 +27,15 @@
 
     git clone https://github.com/z448/ssl4curl
 
-- install local::lib as root or use sudo
+- initialize as root or use sudo
 
-    sudo cpan local::lib
-
-    perl -Mlocal::lib >> ~/.bash\_profile
-
+    su root
+    ssl4curl
+    
+    or
+    
+    sudo ssl4curl
+    
 # EXAMPLE
 
 - add to ~/.bashrc to check/download and setup certificates on start of every session
