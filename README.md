@@ -1,6 +1,4 @@
-# NAME 
-
-- ssl4curl
+#ssl4curl
 
 # SYNOPSIS
 
