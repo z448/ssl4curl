@@ -104,6 +104,22 @@ the -k (or --insecure) option.
 
 =back
 
+=head1 INSTALLATION
+
+=over 12
+
+=item clone repository
+
+git clone https://github.com/z448/ssl4curl
+
+=item install local::lib as root or use sudo
+
+sudo cpan local::lib
+
+perl -Mlocal::lib >> ~/.bash_profile
+
+=back 
+
 =head1 EXAMPLE
 
 =over 12
