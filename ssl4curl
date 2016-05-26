@@ -2,9 +2,9 @@
 
 ##########################################################################
 ##                                                             
-##         FILE: curl-setup-ssl.pl
+##         FILE: ssl4curl
 ##        USAGE: Add to your ~/.bashrc or export from command line
-##               export `curl-ssl-setup.pl`
+##               export `ssl4curl`
 ##  DESCRIPTION: Download and setup Mozilla certificates for curl SSL/TLS
 ##
 ##      OPTIONS:  -h for help
@@ -68,7 +68,7 @@ print "CURL_CA_BUNDLE=$CURL_CA_BUNDLE";
 
 =over 12
 
-=item curl-ssl-setup.pl
+=item ssl4curl
 
 =back
 
@@ -78,7 +78,7 @@ print "CURL_CA_BUNDLE=$CURL_CA_BUNDLE";
 
 =item Download and setup Mozilla certificates for curl SSL/TLS
 
-=item e.g fixes error bellow
+=item a.k.a fixes error bellow
 
 curl: (60) SSL certificate problem: unable to get local issuer certificate
 More details here: http://curl.haxx.se/docs/sslcerts.html
@@ -100,7 +100,9 @@ the -k (or --insecure) option.
 
 =over 12
 
-=item C<export `curl-ssl-setup.pl`>
+=item add to ~/.bashrc or execute on command line to check/download/setup certificates
+
+=item C<export `ssl4curl`>
 
 =back
 
