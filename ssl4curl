@@ -112,11 +112,9 @@ the -k (or --insecure) option.
 
 git clone https://github.com/z448/ssl4curl
 
-=item install local::lib as root or use sudo
+=item initialize from command line as root or use sudo
 
-sudo cpan local::lib
-
-perl -Mlocal::lib >> ~/.bash_profile
+sudo ssl4curl
 
 =back 
 
