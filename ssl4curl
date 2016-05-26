@@ -8,6 +8,7 @@
 ##  DESCRIPTION: Download and setup Mozilla certificates for curl SSL/TLS
 ##
 ##      OPTIONS:  -h for help
+#                 -l to list export string
 ## REQUIREMENTS:  perl
 ##         BUGS:  ---
 ##        NOTES:  ---
@@ -23,10 +24,11 @@ use strict;
 
 use Getopt::Std;
 use Cwd;
+use Config;
 use open qw<:encoding(UTF-8)>;
 
 my( %option, $mozilla_ca_path, $mk_ca_bundle_script, $CURL_CA_BUNDLE ) = ();
-getopts('h', \%option);
+getopts('hp', \%option);
 
 if(defined $option{h}){
     system("perldoc $0");
@@ -62,7 +64,13 @@ $mozilla_ca_path =~ s/(.*)(\.pm)/$1/;
 $CURL_CA_BUNDLE = $mozilla_ca_path . '/' . 'cacert.pem';
 
 # make export string
-print "CURL_CA_BUNDLE=$CURL_CA_BUNDLE";
+
+unless(defined $option{p}){ 
+    my $list_export = "export CURL_CA_BUNDLE=$CURL_CA_BUNDLE\n";
+    print $list_export;
+} else {
+    print "CURL_CA_BUNDLE=$CURL_CA_BUNDLE";
+}
 
 =head1 NAME 
 
@@ -100,9 +108,13 @@ the -k (or --insecure) option.
 
 =over 12
 
-=item add to ~/.bashrc or execute on command line to check/download/setup certificates
+=item add to ~/.bashrc to check/download and setup certificates on start of every session
 
-=item C<export `ssl4curl`>
+=item C<export `/path/to/ssl4curl -p`>
+
+=item execute on command line to check/download certificates and list export string
+
+=item C<ssl4curl>
 
 =back
 
