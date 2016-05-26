@@ -23,6 +23,6 @@ sudo ssl4curl -i
 export `ssl4curl -p`
 #execute on command line to check/download certificates and list export string. You can add output string into your ~/.bashrc in which case certificate setup will be skiped on start of session.
 `ssl4curl`
-#print this doc
+#print help
 `ssl4curl -h`
 ```
