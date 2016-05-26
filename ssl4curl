@@ -8,7 +8,8 @@
 ##  DESCRIPTION: Download and setup Mozilla certificates for curl SSL/TLS
 ##
 ##      OPTIONS:  -h for help
-#                 -l to list export string
+##                -l to list export string
+##                -i initialize
 ## REQUIREMENTS:  perl
 ##         BUGS:  ---
 ##        NOTES:  ---
@@ -27,49 +28,50 @@ use Cwd;
 use Config;
 use open qw<:encoding(UTF-8)>;
 
-my( %option, $mozilla_ca_path, $mk_ca_bundle_script, $CURL_CA_BUNDLE ) = ();
-getopts('hp', \%option);
-
-if(defined $option{h}){
-    system("perldoc $0");
-    die;
-}
+my( %option, $mozilla_ca_path, $mk_ca_bundle_script ) = ();
+my $CURL_CA_BUNDLE = '';
+getopts('hpi', \%option);
 
 # setup cpan
 $ENV{PERL_MM_USE_DEFAULT}=1;
 
+sub get_ca {
 # use cpan to install Mozilla::CA
-open my $pipe,"-|", "perl -MCPAN -e 'install Mozilla::CA'";
-close $pipe;
+    open my $pipe,"-|", "perl -MCPAN -e 'install Mozilla::CA'";
+    close $pipe;
 
 # find Mozilla::CA installed path 
-open $pipe,"-|", 'perldoc -l Mozilla::CA';
-while(<$pipe>){ $mozilla_ca_path = $_ }
-close $pipe;
+    open $pipe,"-|", 'perldoc -l Mozilla::CA';
+    while(<$pipe>){ $mozilla_ca_path = $_ }
+    close $pipe;
 
 # find path to mk-ca-bundle.pl
-$mk_ca_bundle_script = $mozilla_ca_path;
-$mk_ca_bundle_script =~ s/(.*)(\/CA\.pm)/$1/;
-$mk_ca_bundle_script = $1;
-$mk_ca_bundle_script = "$mk_ca_bundle_script" . '/' . 'mk-ca-bundle.pl';
+    $mk_ca_bundle_script = $mozilla_ca_path;
+    $mk_ca_bundle_script =~ s/(.*)(\/CA\.pm)/$1/;
+    $mk_ca_bundle_script = $1;
+    $mk_ca_bundle_script = "$mk_ca_bundle_script" . '/' . 'mk-ca-bundle.pl';
 
 # execute mk-ca-bundle.pl to download certificates
-open $pipe,"-|", "$mk_ca_bundle_script 2>&1";
-close $pipe;
+    open $pipe,"-|", "$mk_ca_bundle_script 2>&1";
+    close $pipe;
 
 # find path to created cacert.pem
-my $cwd = getcwd();
-chomp $mozilla_ca_path;
-$mozilla_ca_path =~ s/(.*)(\.pm)/$1/;
-$CURL_CA_BUNDLE = $mozilla_ca_path . '/' . 'cacert.pem';
-
+    my $cwd = getcwd();
+    chomp $mozilla_ca_path;
+    $mozilla_ca_path =~ s/(.*)(\.pm)/$1/;
 # make export string
+    $CURL_CA_BUNDLE = $mozilla_ca_path . '/' . 'cacert.pem';
+}
 
 unless(defined $option{p}){ 
-    my $list_export = "export CURL_CA_BUNDLE=$CURL_CA_BUNDLE\n";
-    print $list_export;
+    print "export CURL_CA_BUNDLE=$CURL_CA_BUNDLE" if get_ca();
+} elsif(defined $option{i}){
+    print "initialized\n" if get_ca();
+} elsif(defined $option{h}){
+    system("perldoc $0");
+    die;
 } else {
-    print "CURL_CA_BUNDLE=$CURL_CA_BUNDLE";
+    print "CURL_CA_BUNDLE=$CURL_CA_BUNDLE\n" if get_ca();
 }
 
 =head1 NAME 
@@ -114,21 +116,25 @@ git clone https://github.com/z448/ssl4curl
 
 =item initialize from command line as root or use sudo
 
-sudo ssl4curl
+sudo ssl4curl -i
 
 =back 
 
-=head1 EXAMPLE
+=head1 USAGE
 
-=over 12
+=over 12 
 
-=item add to ~/.bashrc to check/download and setup certificates on start of every session
+- add to ~/.bashrc to check/download and setup certificates on start of every session
 
-=item C<export `/path/to/ssl4curl -p`>
+C<export `ssl4curl -p`>
 
-=item execute on command line to check/download certificates and list export string
+- execute on command line to check/download certificates and list export string. You can add output string into your ~/.bashrc in which case certificate setup will be skiped on start of session.
 
-=item C<ssl4curl>
+C<ssl4curl>
+
+- print this pod
+
+C<ssl4curl -h>
 
 =back
 
