@@ -63,7 +63,7 @@ sub get_ca {
     $CURL_CA_BUNDLE = $mozilla_ca_path . '/' . 'cacert.pem';
 }
 
-unless(defined $option{p}){ 
+if(defined $option{p}){ 
     print "export CURL_CA_BUNDLE=$CURL_CA_BUNDLE" if get_ca();
 } elsif(defined $option{i}){
     print "initialized\n" if get_ca();
