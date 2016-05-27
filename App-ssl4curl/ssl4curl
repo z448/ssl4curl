@@ -1,0 +1,114 @@
+package App::ssl4curl;
+
+use Getopt::Std;
+use Cwd;
+use open qw<:encoding(UTF-8)>;
+
+use warnings;
+use strict;
+
+=head1 NAME 
+
+App::ssl4curl - Download and setup Mozilla certificates for curl SSL/TLS access
+
+=cut
+
+require Exporter;
+
+our @ISA = qw(Exporter);
+
+our @EXPORT_OK = qw< get_ca >;
+
+our $VERSION = '0.01';
+
+my( %option, $mozilla_ca_path, $mk_ca_bundle_script ) = ();
+my $CURL_CA_BUNDLE = '';
+getopts('hpi', \%option);
+
+# setup cpan
+$ENV{PERL_MM_USE_DEFAULT}=1;
+
+sub get_ca {
+# use cpan to install Mozilla::CA
+        open my $pipe,"-|", "perl -MCPAN -e 'install Mozilla::CA'";
+        close $pipe;
+
+# find Mozilla::CA installed path 
+        open $pipe,"-|", 'perldoc -l Mozilla::CA';
+        while(<$pipe>){ $mozilla_ca_path = $_ }
+        close $pipe;
+
+# find path to mk-ca-bundle.pl
+        $mk_ca_bundle_script = $mozilla_ca_path;
+        $mk_ca_bundle_script =~ s/(.*)(\/CA\.pm)/$1/;
+        $mk_ca_bundle_script = $1;
+        $mk_ca_bundle_script = "$mk_ca_bundle_script" . '/' . 'mk-ca-bundle.pl';
+
+# execute mk-ca-bundle.pl to download certificates
+        open $pipe,"-|", "$mk_ca_bundle_script 2>&1";
+        close $pipe;
+
+# find path to created cacert.pem
+        my $cwd = getcwd();
+        chomp $mozilla_ca_path;
+        $mozilla_ca_path =~ s/(.*)(\.pm)/$1/;
+# make export string
+        $CURL_CA_BUNDLE = $mozilla_ca_path . '/' . 'cacert.pem';
+}
+
+
+if(defined $option{p}){ 
+        print "export CURL_CA_BUNDLE=$CURL_CA_BUNDLE" if get_ca();
+} elsif(defined $option{i}){
+        print "initialized\n" if get_ca();
+} elsif(defined $option{h}){
+        system("perldoc $0");
+        die;
+} else {
+        print "CURL_CA_BUNDLE=$CURL_CA_BUNDLE\n" if get_ca();
+}
+
+=head1 USAGE
+
+=over 12
+
+=item Initialize from command line as root or use sudo or if you have local::lib set up execute as standard user.
+
+C<sudo ssl4curl -i>
+
+=item then add to ~/.bashrc to check/download and setup certificates using Mozilla::CA module on start of every session.
+
+C<export `ssl4curl -p`>
+
+or
+
+=item you can execute C<ssl4curl> on command line instead to check/download certificates and list export string. Then you can add output string into your ~/.bashrc instead in which case check/download will be skiped on start of session.
+
+C<ssl4curl>
+
+=item Print this pod
+
+C<ssl4curl -h>
+
+=back
+
+=head1 AUTHOR
+
+Zdenek Bohunek, C<< <zed448@icloud.com> >>
+
+=head1 BUGS
+
+=head1 COPYRIGHT & LICENSE
+
+Copyright 2016 Zdenek Bohunek, All Rights Reserved.
+
+This program is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself.
+
+=cut
+
+1; # End of App::ssl4curl
+
+
+
+
