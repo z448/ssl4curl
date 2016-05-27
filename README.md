@@ -7,6 +7,10 @@
 
     curl: (60) SSL certificate problem: unable to get local issuer certificate ...
 
+# GIF
+
+![ssl4curl](https://raw.githubusercontent.com/z448/ssl4curl/master/ssl4curl.gif)
+
 # INSTALLATION
 
 ```bash
