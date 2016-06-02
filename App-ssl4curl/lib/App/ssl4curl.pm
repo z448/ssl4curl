@@ -7,6 +7,12 @@ use Cwd;
 use Config;
 use open qw<:encoding(UTF-8)>;
 
+=head1 NAME
+
+App::ssl4curl - Install and setup Mozilla certificates for curl SSL/TLS from ~/.bashrc
+
+=cut
+
 BEGIN {
     require Exporter;
     our $VERSION = 1.0;
@@ -69,7 +75,7 @@ sub get_ca {
 
 =over 12
 
-=item Download and setup Mozilla certificates for curl SSL/TLS
+=item Install and setup Mozilla certificates for curl SSL/TLS from ~/.bashrc
 
 =item aka fix for error bellow
 
