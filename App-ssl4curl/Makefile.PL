@@ -5,7 +5,7 @@ use ExtUtils::MakeMaker;
 
 WriteMakefile(
     NAME             => 'App::ssl4curl',
-    AUTHOR           => q{z448 <zed448@icloud.com>},
+    AUTHOR           => q{Zdenek Bohunek <zdenek@cpan.org>},
     VERSION_FROM     => 'lib/App/ssl4curl.pm',
     ABSTRACT_FROM    => 'lib/App/ssl4curl.pm',
     LICENSE          => 'artistic_2',
