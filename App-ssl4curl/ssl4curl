@@ -32,6 +32,8 @@ use App::ssl4curl qw< get_ca install_ca >;
 my( %option, $mozilla_ca_path, $mk_ca_bundle_script ) = ();
 getopts('hpi', \%option);
 
+my $CURL_CA_BUNDLE = get_ca();
+
 if(defined $option{p}){ 
     print "export CURL_CA_BUNDLE=$CURL_CA_BUNDLE" if get_ca();
 } elsif(defined $option{i}){

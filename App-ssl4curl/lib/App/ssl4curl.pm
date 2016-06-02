@@ -3,7 +3,6 @@ package App::ssl4curl;
 use warnings;
 use strict;
 
-use Getopt::Std;
 use Cwd;
 use Config;
 use open qw<:encoding(UTF-8)>;
@@ -18,20 +17,19 @@ BEGIN {
 
 my( %option, $mozilla_ca_path, $mk_ca_bundle_script ) = ();
 my $CURL_CA_BUNDLE = '';
-getopts('hpi', \%option);
 
 # setup cpan
 $ENV{PERL_MM_USE_DEFAULT}=1;
 
-sub install_ca {
+#sub install_ca {
     my $install_ca = sub {
 # use cpan to install Mozilla::CA
         system("perl -MCPAN -e 'install Mozilla::CA'");
     };
-    $install_ca->();
-}
+#}
 
 sub get_ca {
+    #my $option = shift;
     my $get_ca = sub {
 # find Mozilla::CA installed path 
         open my $pipe,"-|", 'perldoc -l Mozilla::CA';
@@ -55,7 +53,7 @@ sub get_ca {
 # make export string
         $CURL_CA_BUNDLE = $mozilla_ca_path . '/' . 'cacert.pem';
     };
-    $get_ca->();
+    return $CURL_CA_BUNDLE unless $get_ca->();
 }
 
 
