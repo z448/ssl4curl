@@ -35,13 +35,14 @@ getopts('hpi', \%option);
 # setup cpan
 $ENV{PERL_MM_USE_DEFAULT}=1;
 
-sub get_ca {
+sub install_ca {
 # use cpan to install Mozilla::CA
-    open my $pipe,"-|", "perl -MCPAN -e 'install Mozilla::CA'";
-    close $pipe;
+    system("perl -MCPAN -e 'install Mozilla::CA'");
+}
 
+sub get_ca {
 # find Mozilla::CA installed path 
-    open $pipe,"-|", 'perldoc -l Mozilla::CA';
+    open my $pipe,"-|", 'perldoc -l Mozilla::CA';
     while(<$pipe>){ $mozilla_ca_path = $_ }
     close $pipe;
 
@@ -66,7 +67,7 @@ sub get_ca {
 if(defined $option{p}){ 
     print "export CURL_CA_BUNDLE=$CURL_CA_BUNDLE" if get_ca();
 } elsif(defined $option{i}){
-    print "initialized\n" if get_ca();
+    print "initialized\n" if install_ca();
 } elsif(defined $option{h}){
     system("perldoc $0");
     die;
