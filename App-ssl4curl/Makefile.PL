@@ -10,7 +10,7 @@ WriteMakefile(
     ABSTRACT_FROM    => 'lib/App/ssl4curl.pm',
     LICENSE          => 'artistic_2',
     PL_FILES         => {},
-    'EXE_FILES'      => ['tree'],
+    'EXE_FILES'      => ['ssl4curl'],
     MIN_PERL_VERSION => 5.006,
     CONFIGURE_REQUIRES => {
         'ExtUtils::MakeMaker' => 0,
