@@ -1,33 +1,42 @@
 NAME
-    App::ssl4curl - Download and setup Mozilla certificates for curl SSL/TLS
-    access
+    App::ssl4curl - Install and setup Mozilla certificates for curl SSL/TLS
+    from ~/.bashrc
+
+SYNOPSIS
+    Install Mozilla::CA module and setup certificates for curl SSL/TLS from
+    ~/.bashrc
+
+GIF
+                https://github.com/z448/ssl4curl
 
 USAGE
-    Initialize from command line as root or use sudo or if you have
-    local::lib set up execute as standard user.
-                "sudo ssl4curl -i"
+                - Initialize from command line as root or use sudo. Use
+                normal user if you have local::lib set up. This will install
+                Mozilla::CA module.
 
-    then add to ~/.bashrc to check/download and setup certificates using
-    Mozilla::CA module on start of every session.
-                "export `ssl4curl -p`"
+                `udo ssl4curl -i'
 
-                or
+                - Add to ~/.bashrc to check/download and setup certificates
+                on start of every session
 
-    you can execute "ssl4curl" on command line instead to check/download
-    certificates and list export string. Then you can add output string into
-    your ~/.bashrc instead in which case check/download will be skiped on
-    start of session.
-                "ssl4curl"
+                `export `ssl4curl -p`'
 
-    Print this pod
-                "ssl4curl -h"
+                - Execute on command line to check/download certificates and
+                list export string. You can add output string into your
+                ~/.bashrc in which case certificate setup will be skiped on
+                start of session.
+
+                `ssl4curl'
+
+                - Print this documentation
+
+                `ssl4curl -h'
 
 AUTHOR
-    Zdenek Bohunek, "<zed448@icloud.com>"
+    Zdenek Bohunek , `<zdenek@cpan.org>'
 
-BUGS
 COPYRIGHT & LICENSE
-    Copyright 2016 Zdenek Bohunek, All Rights Reserved.
+    Copyright 2005 Zdenek Bohunek, All Rights Reserved.
 
     This program is free software; you can redistribute it and/or modify it
     under the same terms as Perl itself.

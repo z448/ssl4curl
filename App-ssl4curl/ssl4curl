@@ -1,25 +1,5 @@
 #!/usr/bin/env perl
 
-##########################################################################
-##                                                             
-##         FILE: ssl4curl
-##        USAGE: Add to your ~/.bashrc or export from command line
-##               export `ssl4curl`
-##  DESCRIPTION: Download and setup Mozilla certificates for curl SSL/TLS
-##
-##      OPTIONS:  -h for help
-##                -l to list export string
-##                -i initialize
-## REQUIREMENTS:  perl
-##         BUGS:  ---
-##        NOTES:  ---
-##       AUTHOR:  Zdenek Bohunek (z448), zed448@icloud.com
-##      COMPANY:  load.sh laboratory
-##      VERSION:  1.0
-##      CREATED:  05/25/2016 09:34:33
-##     REVISION:  ---
-##########################################################################
-
 use warnings;
 use strict;
 
@@ -44,62 +24,5 @@ if(defined $option{p}){
 } else {
     print "CURL_CA_BUNDLE=$CURL_CA_BUNDLE\n" if get_ca();
 }
-
-=head1 NAME 
-
-=over 12
-
-=item ssl4curl
-
-=back
-
-=head1 SYNOPSIS
-
-=over 12
-
-=item Download and setup Mozilla certificates for curl SSL/TLS
-
-=item aka fix for error bellow
-
-curl: (60) SSL certificate problem: unable to get local issuer certificate
-
-=back
-
-=head1 INSTALLATION
-
-=over 12
-
-=item clone repository
-
-git clone https://github.com/z448/ssl4curl
-
-=item initialize from command line as root or use sudo
-
-sudo ssl4curl -i
-
-=back 
-
-=head1 USAGE
-
-=over 12 
-
-- add to ~/.bashrc to check/download and setup certificates on start of every session
-
-C<export `ssl4curl -p`>
-
-- execute on command line to check/download certificates and list export string. You can add output string into your ~/.bashrc in which case certificate setup will be skiped on start of session.
-
-C<ssl4curl>
-
-- print this pod
-
-C<ssl4curl -h>
-
-=back
-
-=cut
-
-
-
 
 

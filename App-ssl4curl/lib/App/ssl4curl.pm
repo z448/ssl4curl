@@ -15,7 +15,7 @@ App::ssl4curl - Install and setup Mozilla certificates for curl SSL/TLS from ~/.
 
 BEGIN {
     require Exporter;
-    our $VERSION = 1.0;
+    our $VERSION = 1.01;
     our @ISA = qw(Exporter);
     our @EXPORT_OK = qw( get_ca install_ca );
 }
@@ -63,61 +63,54 @@ sub get_ca {
 }
 
 
-=head1 NAME 
-
-=over 12
-
-=item ssl4curl
-
-=back
-
 =head1 SYNOPSIS
 
 =over 12
 
-=item Install and setup Mozilla certificates for curl SSL/TLS from ~/.bashrc
-
-=item aka fix for error bellow
-
-curl: (60) SSL certificate problem: unable to get local issuer certificate
+=item Install Mozilla::CA module and setup certificates for curl SSL/TLS from ~/.bashrc
 
 =back
 
-=head1 INSTALLATION
+=head1 GIF
 
 =over 12
 
-=item clone repository
+L<https://github.com/z448/ssl4curl>
 
-git clone https://github.com/z448/ssl4curl
-
-=item initialize from command line as root or use sudo
-
-sudo ssl4curl -i
-
-=back 
+=back
 
 =head1 USAGE
 
 =over 12 
 
-- add to ~/.bashrc to check/download and setup certificates on start of every session
+- Initialize from command line as root or use sudo. Use normal user if you have local::lib set up. This will install Mozilla::CA module.
+
+C<udo ssl4curl -i>
+
+- Add to ~/.bashrc to check/download and setup certificates on start of every session
 
 C<export `ssl4curl -p`>
 
-- execute on command line to check/download certificates and list export string. You can add output string into your ~/.bashrc in which case certificate setup will be skiped on start of session.
+- Execute on command line to check/download certificates and list export string. You can add output string into your ~/.bashrc in which case certificate setup will be skiped on start of session.
 
 C<ssl4curl>
 
-- print this pod
+- Print this documentation
 
 C<ssl4curl -h>
 
 =back
 
+=head1 AUTHOR
+
+Zdenek Bohunek , C<< <zdenek@cpan.org> >>
+
+=head1 COPYRIGHT & LICENSE
+
+Copyright 2005 Zdenek Bohunek, All Rights Reserved.
+
+This program is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself.
+
 =cut
-
-
-
-
 
