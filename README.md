@@ -1,5 +1,11 @@
 #ssl4curl
 
+###UPDATE 
+Sat Jun 11 22:26:31 CEST 2016 - install with **cpan**
+```bash
+sudo cpan App::ssl4curl
+```
+
 # SYNOPSIS
 
 - Download and setup Mozilla certificates for curl SSL/TLS
