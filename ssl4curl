@@ -38,6 +38,8 @@ $ENV{PERL_MM_USE_DEFAULT}=1;
 sub install_ca {
 # use cpan to install Mozilla::CA
     system("perl -MCPAN -e 'install Mozilla::CA'");
+    my $status = `perldoc -l Mozilla::CA`;
+    return 0 unless $status =~ /\:\:CA/;
 }
 
 sub get_ca {
@@ -67,6 +69,8 @@ sub get_ca {
 if(defined $option{p}){ 
     print "export CURL_CA_BUNDLE=$CURL_CA_BUNDLE" if get_ca();
 } elsif(defined $option{i}){
+    my $id = `id`;
+    die "initialization has to be run as 'root'" unless $id =~ /root/;
     print "initialized\n" if install_ca();
 } elsif(defined $option{h}){
     system("perldoc $0");
